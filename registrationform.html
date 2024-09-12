@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background: url(rehisstration.jpg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align:center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align:right;
+        }
+
+        .form-wrapper {
+            display:block;
+            justify-content: center;
+            align-items: center;
+            width: 250%;
+        
+        }
+
+        form {
+            background: #fff;
+            padding: 100px;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            text-align:left;
+            
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #131111;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid black;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #5cb85c;
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            text-align:center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+
+        .error {
+            font-size: 0.9em;
+            color: red;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .success {
+            font-size: 1em;
+            color: green;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Registration Form</h2>
+        <div class="form-wrapper">
+            <form id="registerForm" onsubmit="return validateForm()">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username"><br>
+                <span id="usernameError" class="error"></span><br>
+
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" min="0"><br>
+                <span id="ageError" class="error"></span><br>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password"><br>
+                <span id="passwordError" class="error"></span><br>
+
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword"><br>
+                <span id="confirmPasswordError" class="error"></span><br>
+
+                <input type="submit" value="Register">
+            </form>
+        </div>
+        <p id="successMsg" class="success"></p>
+    </div>
+
+    <script>
+        function validateForm() {
+            // Clear previous messages
+            document.getElementById("usernameError").innerHTML = "";
+            document.getElementById("ageError").innerHTML = "";
+            document.getElementById("passwordError").innerHTML = "";
+            document.getElementById("confirmPasswordError").innerHTML = "";
+            document.getElementById("successMsg").innerHTML = "";
+
+            let username = document.getElementById("username").value;
+            let age = document.getElementById("age").value;
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirmPassword").value;
+            let isValid = true;
+
+            // Username validation
+            if (username === "") {
+                document.getElementById("usernameError").innerHTML = "Username is required";
+                isValid = false;
+            }
+
+            // Age validation
+            if (age === "") {
+                document.getElementById("ageError").innerHTML = "Age is required";
+                isValid = false;
+            } else if (age < 18 || age > 25) {
+                document.getElementById("ageError").innerHTML = "Please enter a valid age between 18 and 25";
+                isValid = false;
+            }
+
+            // Password validation
+            if (password === "") {
+                document.getElementById("passwordError").innerHTML = "Password is required";
+                isValid = false;
+            } else if (password.length < 6) {
+                document.getElementById("passwordError").innerHTML = "Password must be at least 6 characters long";
+                isValid = false;
+            }
+
+            // Confirm password validation
+            if (confirmPassword === "") {
+                document.getElementById("confirmPasswordError").innerHTML = "Please confirm your password";
+                isValid = false;
+            } else if (password !== confirmPassword) {
+                document.getElementById("confirmPasswordError").innerHTML = "Passwords do not match";
+                isValid = false;
+            }
+
+            if (isValid) {
+                document.getElementById("successMsg").innerHTML = "Registration successful!";
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>
